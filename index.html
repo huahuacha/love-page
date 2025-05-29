@@ -1,391 +1,238 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>鸭鸭公主向你发送了一封对象邀请涵</title>
-</head>
-<body>
-    <!-- 初始界面 -->
-    <section class="confirm">
-        <div class="confirm-body">
-            <h2 class="confirm-body-title">鸭鸭公主向你发送了一封对象邀请涵</h2>
-            <h3 class="confirm-body-subtitle">鸭鸭公主希望你成为ta的对象，是否接受？</h3>
-            <figure class="boi" style="--happiness:0.9; --derp:1; --px:0.5; --py:0.5;">
-                <div class="boi-blush boi-blush-left"></div>
-                <div class="boi-blush boi-blush-right"></div>
-                <div class="boi-eye boi-eye-left"></div>
-                <div class="boi-eye boi-eye-right"></div>
-                <div class="boi-mouth"></div>
-            </figure>
-            <a class="confirm-body-button confirm-body-button-cancel" href="javascript:void(0)">接受</a>
-            <a class="confirm-body-button confirm-body-button-delete" href="javascript:void(0)">拒绝</a>
-        </div>
-    </section>
-
-    <!-- 接受后的新界面 -->
-    <section class="accepted hidden">
-        <div class="accepted-body">
-            <h2 class="accepted-body-title">恭喜你们成为对象！</h2>
-            <h3 class="accepted-body-subtitle">鸭鸭公主非常开心，祝你们幸福快乐！</h3>
-            <figure class="boi" style="--happiness:1; --derp:0; --px:0.5; --py:0.5;">
-                <div class="boi-blush boi-blush-left"></div>
-                <div class="boi-blush boi-blush-right"></div>
-                <div class="boi-eye boi-eye-left"></div>
-                <div class="boi-eye boi-eye-right"></div>
-                <div class="boi-mouth"></div>
-            </figure>
-            <a class="accepted-body-button" href="javascript:void(0)">返回</a>
-        </div>
-    </section>
-
-    <!-- 拒绝后的新界面 -->
-    <section class="rejected hidden">
-        <div class="rejected-body">
-            <h2 class="rejected-body-title">鸭鸭公主不同意</h2>
-            <h3 class="rejected-body-subtitle">但鸭鸭公主尊重你的决定，祝你一切顺利！</h3>
-            <figure class="boi" style="--happiness:0.2; --derp:0; --px:0.5; --py:0.5;">
-                <div class="boi-blush boi-blush-left"></div>
-                <div class="boi-blush boi-blush-right"></div>
-                <div class="boi-eye boi-eye-left"></div>
-                <div class="boi-eye boi-eye-right"></div>
-                <div class="boi-mouth"></div>
-            </figure>
-            <a class="rejected-body-button" href="javascript:void(0)">返回</a>
-        </div>
-    </section>
-
+    <title>黄金魔法九宫格抽奖</title>
     <style>
-        * {
-            box-sizing: border-box;
-            font: inherit;
-        }
-
-        html {
-            color: #333;
-            font-size: 62.5%;
-        }
-
-        @media screen and (max-width: 480px) {
-            html {
-                font-size: 50%;
-            }
-        }
-
         body {
-            font-size: 2rem;
-            padding: 0;
-            margin: 0;
-            width: 100vw;
-            height: 100vh;
-            font-family: 'Rubik', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url('necklace_images/bg.jpg') no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+            /* font-family: 'Arial', sans-serif; */
+            /* background: #000; */
+            /* color: white; */
+            /* text-align: center; */
+            /* margin: 0; */
+            /* padding: 20px; */
+            /* overflow-x: hidden; */
         }
-
-        .confirm,
-        .accepted,
-        .rejected {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
+        h1 {
+            color: gold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            margin-bottom: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        .item {
+            background: #222;
+            border-radius: 10px;
             overflow: hidden;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 72rem;
-            max-width: 100%;
-            min-width: 34rem;
-            max-height: 100%;
-            height: 46rem;
-            background-color: #ffffff;
-            border-radius: 1rem;
-        }
-
-        .confirm-body,
-        .accepted-body,
-        .rejected-body {
-            flex: 1;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
             position: relative;
-            margin: 2rem 4rem;
+            cursor: pointer;
+            aspect-ratio: 1/1;
+            transition: all 0.3s;
+            border: 2px solid #333;
         }
-
-        .confirm-body-title,
-        .accepted-body-title,
-        .rejected-body-title {
-            margin: 0;
-            padding: 0;
-            position: absolute;
-            transform: translateY(-50%);
-            top: 5%;
-            text-align: center;
-            width: 100%;
-        }
-
-        .confirm-body-subtitle,
-        .accepted-body-subtitle,
-        .rejected-body-subtitle {
-            margin: 0;
-            padding: 0;
-            position: absolute;
-            transform: translateY(-50%);
-            top: 15%;
-            text-align: center;
-            width: 100%;
-            font-size: 1.5rem;
-        }
-
-        .confirm-body-button,
-        .confirm-body-button:link,
-        .confirm-body-button:visited,
-        .accepted-body-button,
-        .rejected-body-button {
-            color: #fff;
-            border-radius: 1rem;
-            text-decoration: none;
-            padding: 1rem 2rem;
-            margin-bottom: 1rem;
-            min-width: 10rem;
-            text-align: center;
-            transition: background-color 0.3s;
-        }
-
-        .confirm-body-button-delete {
-            background-color: #a43;
-        }
-
-        .confirm-body-button-delete:hover {
-            background-color: #c85a48;
-        }
-
-        .confirm-body-button-cancel {
-            background-color: #6a4;
-        }
-
-        .confirm-body-button-cancel:hover {
-            background-color: #81c061;
-        }
-
-        .accepted-body-button,
-        .rejected-body-button {
-            background-color: #6a4;
-        }
-
-        .accepted-body-button:hover,
-        .rejected-body-button:hover {
-            background-color: #81c061;
-        }
-
-        .boi {
-            --happiness: 0.9;
-            --derp: 1;
-            --px: 0.5;
-            --py: 0.5;
-            width: 22rem;
-            max-width: 100%;
-            height: 22rem;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-image: radial-gradient(#f7e0b2, #eb5);
-            border-radius: 100%;
-            overflow: hidden;
-            margin: 0;
-            align-self: center;
-            flex: 0 0 auto;
-            border: solid 2px #ecb23e;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .boi,
-        .boi * {
-            position: absolute;
-        }
-
-        .boi::before {
-            content: '';
-            display: block;
+        .item img {
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
-            background-image: linear-gradient(to bottom, #5a8, rgba(85, 170, 136, 0));
-            opacity: calc(1 - var(--happiness));
+            object-fit: cover;
         }
-
-        .boi-blush {
-            width: 20%;
-            height: 10%;
-            background-color: rgba(255, 100, 100, 0.3);
-            border: 3px solid rgba(255, 100, 100, 0.3);
-            top: calc(45% + var(--py) * 10%);
-            border-radius: 100%;
-            opacity: calc(var(--happiness) * var(--happiness) * 0.9 + 0.1);
+        .item.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px gold;
+            border: 2px solid gold;
+            z-index: 10;
         }
-
-        .boi-blush-left {
-            left: calc(7% + var(--px) * 2%);
+        button {
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            color: black;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            box-shadow: 0 0 15px gold;
+            transition: all 0.3s;
         }
-
-        .boi-blush-right {
-            right: calc(9% - var(--px) * 2%);
+        button:hover {
+            transform: scale(1.05);
         }
-
-        .boi-eye {
-            width: calc(26% - var(--happiness) * 2%);
-            height: calc(26% - var(--happiness) * 2%);
-            background-color: #f6f6f6;
-            border-radius: 100%;
-            top: calc(25% + var(--py) * 10%);
-            overflow: hidden;
+        #result {
+            margin-top: 30px;
+            font-size: 24px;
+            color: gold;
+            text-shadow: 0 0 5px gold;
+            min-height: 60px;
         }
-
-        .boi-eye-left {
-            left: calc(18% + var(--px) * 4%);
-        }
-
-        .boi-eye-left::after {
-            transform: translate(calc((var(--px) + var(--derp) * 0.5) * 100%), calc((var(--py) + var(--derp) * 0.5) * 100%));
-        }
-
-        .boi-eye-right {
-            right: calc(22% - var(--px) * 4%);
-        }
-
-        .boi-eye-right::after {
-            transform: translate(calc((var(--px) + var(--derp) * -0.3) * 100%), calc((var(--py) + var(--derp) * -0.3) * 100%));
-        }
-
-        .boi-eye::after {
-            content: '';
-            display: block;
-            background-color: #421;
-            width: calc(55% - var(--happiness) * 10%);
-            height: calc(55% - var(--happiness) * 10%);
-            border-radius: 100%;
-        }
-
-        .boi-mouth {
-            width: calc(51% - var(--happiness) * 2%);
-            height: calc(26% - var(--happiness) * 2%);
-            background-color: #a33;
-            border-radius: calc((1 - var(--happiness)) * 10em) calc((1 - var(--happiness)) * 10em) calc(var(--happiness) * 16em) calc(var(--happiness) * 16em);
-            top: calc(57.5% + var(--py) * 5%);
-            left: calc(47.5% + var(--px) * 5%);
-            transform: translateX(-50%);
-            overflow: hidden;
-            border: 3px solid #962d2d;
-            -webkit-mask-image: -webkit-radial-gradient(white, black);
-        }
-
-        .boi-mouth::before {
-            content: '';
-            display: block;
+        .confetti {
             position: absolute;
-            width: 20%;
-            height: 20%;
-            top: 0;
+            width: 10px;
+            height: 10px;
+            background: gold;
+            opacity: 0;
+        }
+        .attempt-counter {
+            margin-top: 10px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* 动画奖品展示 */
+        #prize-show {
+            position: fixed;
+            top: 50%;
             left: 50%;
-            background-color: white;
-            border-radius: 0 0 0.5rem 0.5rem;
+            transform: translate(-50%, -50%) scale(0);
+            width: 300px;
+            height: 300px;
+            background: black;
+            border: 5px solid gold;
+            border-radius: 20px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: popPrize 1s ease-out forwards;
         }
 
-        .boi-mouth::after {
-            content: '';
-            display: block;
-            position: absolute;
-            width: 60%;
-            height: 50%;
-            left: 10%;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 20rem 20rem 0 0;
+        #prize-show img {
+            max-width: 90%;
+            max-height: 90%;
         }
 
-        .hidden {
-            display: none;
+        @keyframes popPrize {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); }
         }
     </style>
+</head>
+<body>
+    
+    <h1>🌟 幸运九宫格</h1>
+    <p>点击按钮，解锁你的专属礼物！</p>
+    <div class="attempt-counter" id="counter">尝试次数: 0/3</div>
+    
+    <div class="grid" id="grid">
+        <div class="item"><img src="necklace_images\ps5slim.jpg" alt="ps5slim"></div>
+        <div class="item"><img src="necklace_images\sexy.jpg" alt="sexy"></div>
+        <div class="item"><img src="necklace_images\garments1.jpg" alt="garments1"></div>
+        <div class="item"><img src="necklace_images\garments2.jpg" alt="garments2"></div>
+        <div class="item" id="target"><img src="necklace_images\necklace.jpg" alt="necklace"></div>
+        <div class="item"><img src="necklace_images\Judy.jpg" alt="Judy"></div>
+        <div class="item"><img src="necklace_images\garments3.jpg" alt="garments3"></div>
+        <div class="item"><img src="necklace_images\stockings.jpg" alt="stockinggs"></div>
+        <div class="item"><img src="necklace_images\Usach.jpg" alt="Usach"></div>
+    </div>
+    
+    <button onclick="startLottery()">✨ 开始抽奖 ✨</button>
+    <div id="result"></div>
+
+    <!-- 音效 -->
+    <audio id="tick-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c5ff9f6cb7.mp3"></audio>
+    <audio id="win-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c233951c1c.mp3"></audio>
 
     <script>
-        const confirmSection = document.querySelector('.confirm');
-        const acceptedSection = document.querySelector('.accepted');
-        const rejectedSection = document.querySelector('.rejected');
-        const boi = document.querySelector('.boi');
-        const btnDelete = document.querySelector('.confirm-body-button-delete');
-        const btnCancel = document.querySelector('.confirm-body-button-cancel');
-        const current = {
-            happiness: 0.9,
-            derp: 1,
-            px: 0.5,
-            py: 0.5
-        };
-        const target = { ...current };
+        const items = document.querySelectorAll('.item');
+        const target = document.getElementById('target');
+        const resultDiv = document.getElementById('result');
+        const counterDiv = document.getElementById('counter');
+        const button = document.querySelector('button');
+        const tickSound = document.getElementById('tick-sound');
+        const winSound = document.getElementById('win-sound');
+        let clickCount = 0;
+        let isRolling = false;
 
-        // �¼�����
-        confirmSection.addEventListener('mousemove', onMouseMove);
-        confirmSection.addEventListener('mouseleave', onMouseLeave);
+        function startLottery() {
+            if (isRolling || clickCount >= 3) return;
+            isRolling = true;
+            clickCount++;
+            counterDiv.textContent = `尝试次数: ${clickCount}/3`;
 
-        btnCancel.addEventListener('click', () => {
-            confirmSection.classList.add('hidden');
-            acceptedSection.classList.remove('hidden');
-        });
+            let totalSteps = 20;
+            let counter = 0;
+            const intervalTime = 100;
 
-        btnDelete.addEventListener('click', () => {
-            confirmSection.classList.add('hidden');
-            rejectedSection.classList.remove('hidden');
-        });
+            let eligibleItems = Array.from(items);
+            const targetIndex = eligibleItems.indexOf(target);
 
-        acceptedSection.querySelector('a').addEventListener('click', () => {
-            acceptedSection.classList.add('hidden');
-            confirmSection.classList.remove('hidden');
-        });
-
-        rejectedSection.querySelector('a').addEventListener('click', () => {
-            rejectedSection.classList.add('hidden');
-            confirmSection.classList.remove('hidden');
-        });
-
-        function onMouseMove({ clientX: x, clientY: y }) {
-            let dx1 = x - btnDelete.getBoundingClientRect().x - btnDelete.getBoundingClientRect().width * 0.5;
-            let dy1 = y - btnDelete.getBoundingClientRect().y - btnDelete.getBoundingClientRect().height * 0.5;
-            let dx2 = x - btnCancel.getBoundingClientRect().x - btnCancel.getBoundingClientRect().width * 0.5;
-            let dy2 = y - btnCancel.getBoundingClientRect().y - btnCancel.getBoundingClientRect().height * 0.5;
-            let px = (x - confirmSection.getBoundingClientRect().x) / confirmSection.getBoundingClientRect().width;
-            let py = (y - confirmSection.getBoundingClientRect().y) / confirmSection.getBoundingClientRect().height;
-            let distDelete = Math.sqrt(dx1 * dx1 + dy1 * dy1);
-            let distCancel = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-            let happiness = Math.pow(distDelete / (distCancel + distDelete), 0.75);
-
-            target.happiness = happiness;
-            target.derp = 0;
-            target.px = px;
-            target.py = py;
-        }
-
-        function onMouseLeave() {
-            target.happiness = 0.9;
-            target.derp = 1;
-            target.px = 0.5;
-            target.py = 0.5;
-        }
-
-        function update() {
-            for (let prop in target) {
-                if (target[prop] === current[prop]) {
-                    continue;
-                } else if (Math.abs(target[prop] - current[prop]) < 0.01) {
-                    current[prop] = target[prop];
-                } else {
-                    current[prop] += (target[prop] - current[prop]) * 0.1;
-                }
-                boi.style.setProperty(`--${prop}`, current[prop]);
+            if (clickCount < 3) {
+                eligibleItems.splice(targetIndex, 1);
             }
-            requestAnimationFrame(update);
+
+            const interval = setInterval(() => {
+                items.forEach(item => item.classList.remove('active'));
+
+                let index;
+                if (clickCount < 3 || counter < totalSteps - 1) {
+                    const randomItem = eligibleItems[Math.floor(Math.random() * eligibleItems.length)];
+                    index = Array.from(items).indexOf(randomItem);
+                } else {
+                    index = targetIndex;
+                }
+
+                items[index].classList.add('active');
+                tickSound.currentTime = 0;
+                tickSound.play();
+
+                counter++;
+
+                if (counter >= totalSteps) {
+                    clearInterval(interval);
+                    isRolling = false;
+
+                    if (clickCount < 3) {
+                        resultDiv.innerHTML = `😅 没中！还有机会~`;
+                        button.textContent = clickCount === 1 ? "🔮 再试一次 🔮" : "🌟 最后一次机会 🌟";
+                    } else {
+                        resultDiv.innerHTML = `🎉 恭喜你抽中：<br><b>${target.querySelector('img').alt}</b>`;
+                        button.textContent = "🎁 点击领取奖品";
+                        button.onclick = () => alert("🎁 奖品马上送出！");
+                        createConfetti();
+                        winSound.play();
+                        showPrize();
+                    }
+                }
+            }, intervalTime);
         }
-        update();
+
+        function createConfetti() {
+            const colors = ['gold', '#ffd700', '#ffaa00', '#fff'];
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(confetti);
+                setTimeout(() => {
+                    confetti.style.opacity = '1';
+                    confetti.style.top = Math.random() * 100 + 'vh';
+                    confetti.style.left = (parseFloat(confetti.style.left) + (Math.random() - 0.5) * 20) + 'vw';
+                    confetti.style.transition = `top ${Math.random() * 3 + 2}s linear, left ${Math.random() * 3 + 2}s linear`;
+                }, 0);
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        function showPrize() {
+            const prize = document.createElement('div');
+            prize.id = 'prize-show';
+            prize.innerHTML = `<img src="${target.querySelector('img').src}" alt="大奖">`;
+            document.body.appendChild(prize);
+            setTimeout(() => prize.remove(), 5000);
+        }
     </script>
 </body>
 </html>
